@@ -1,0 +1,79 @@
+{
+  "database": "IceCreamShop",
+  "tables": {
+    "Store": {
+      "description": "Physical store units with location and address.",
+      "columns": {
+        "StoreId": "INT, Primary Key, identity",
+        "StoreName": "VARCHAR(150), store display name",
+        "AddressLine": "VARCHAR(255), street address",
+        "City": "VARCHAR(120), city name",
+        "State": "VARCHAR(80), state abbreviation",
+        "ZipCode": "VARCHAR(20), postal code",
+        "Latitude": "DECIMAL(9,6), GPS latitude",
+        "Longitude": "DECIMAL(9,6), GPS longitude",
+        "CreatedAt": "DATETIME2, creation timestamp"
+      }
+    },
+
+    "Seller": {
+      "description": "Employees who work in the stores and perform sales.",
+      "columns": {
+        "SellerId": "INT, Primary Key, identity",
+        "FirstName": "VARCHAR(120), seller first name",
+        "LastName": "VARCHAR(120), seller last name",
+        "BirthDate": "DATE, birth date",
+        "EmployeeCode": "VARCHAR(50), unique employee identifier",
+        "PhoneNumber": "VARCHAR(30), contact number",
+        "DocumentNumber": "VARCHAR(50), national ID number",
+        "StoreId": "INT, foreign key referencing Store",
+        "CreatedAt": "DATETIME2, creation timestamp"
+      }
+    },
+
+    "ProductCategory": {
+      "description": "Categories that group different product types.",
+      "columns": {
+        "CategoryId": "INT, Primary Key, identity",
+        "CategoryName": "VARCHAR(150), category name",
+        "CreatedAt": "DATETIME2, creation timestamp"
+      }
+    },
+
+    "Product": {
+      "description": "Items available for sale in the store.",
+      "columns": {
+        "ProductId": "INT, Primary Key, identity",
+        "ProductName": "VARCHAR(200), product name",
+        "CategoryId": "INT, foreign key referencing ProductCategory",
+        "UnitPrice": "DECIMAL(10,2), price per unit",
+        "IsActive": "BIT, indicates if the product is being sold",
+        "CreatedAt": "DATETIME2, creation timestamp"
+      }
+    },
+
+    "Sale": {
+      "description": "Transaction header for each sale.",
+      "columns": {
+        "SaleId": "BIGINT, Primary Key, identity",
+        "StoreId": "INT, foreign key referencing Store",
+        "SellerId": "INT, foreign key referencing Seller",
+        "SaleDate": "DATETIME2, timestamp of the transaction",
+        "TotalAmount": "DECIMAL(12,2), total sale value",
+        "PaymentMethod": "VARCHAR(50), cash/credit/pix/etc."
+      }
+    },
+
+    "SaleItem": {
+      "description": "Line items belonging to each sale.",
+      "columns": {
+        "SaleItemId": "BIGINT, Primary Key, identity",
+        "SaleId": "BIGINT, foreign key referencing Sale",
+        "ProductId": "INT, foreign key referencing Product",
+        "Quantity": "INT, number of units sold",
+        "UnitPrice": "DECIMAL(10,2), price per unit at sale time",
+        "LineTotal": "calculated, Quantity * UnitPrice"
+      }
+    }
+  }
+}
