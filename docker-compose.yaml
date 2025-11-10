@@ -13,5 +13,16 @@ services:
       - pgdata:/var/lib/postgresql/data
     restart: always
 
+  backend:
+    build: ./backend
+    container_name: icecream_api
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - postgres
+
 volumes:
   pgdata:

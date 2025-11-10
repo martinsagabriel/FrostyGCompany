@@ -46,12 +46,10 @@ CREATE TABLE Product (
 
 CREATE TABLE Sale (
     SaleId BIGSERIAL PRIMARY KEY,
-    StoreId INT NOT NULL,
     SellerId INT NOT NULL,
     SaleDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     TotalAmount DECIMAL(12,2) NOT NULL,
     PaymentMethod VARCHAR(50),
-    FOREIGN KEY (StoreId) REFERENCES Store(StoreId),
     FOREIGN KEY (SellerId) REFERENCES Seller(SellerId)
 );
 
@@ -60,8 +58,6 @@ CREATE TABLE SaleItem (
     SaleId BIGINT NOT NULL,
     ProductId INT NOT NULL,
     Quantity INT NOT NULL,
-    UnitPrice DECIMAL(10,2) NOT NULL,
-    LineTotal DECIMAL(12,2) GENERATED ALWAYS AS (Quantity * UnitPrice) STORED,
     FOREIGN KEY (SaleId) REFERENCES Sale(SaleId),
     FOREIGN KEY (ProductId) REFERENCES Product(ProductId)
 );
