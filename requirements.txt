@@ -3,3 +3,4 @@ pandas
 pyodbc
 Faker
 psycopg2-binary
+requests

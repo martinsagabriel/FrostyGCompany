@@ -1,0 +1,23 @@
+{
+  "name": "postgres-sales-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "postuser",
+    "database.password": "postpass",
+    "database.dbname": "postgres",
+    "topic.prefix": "salesdb",
+    "slot.name": "sales_slot",
+    "publication.autocreate.mode": "filtered",
+    "publication.name": "sales_publication",
+    "schema.include.list": "public",
+    "table.include.list": "public.sale,public.saleitem",
+    "plugin.name": "pgoutput",
+    "slot.drop.on.stop": "false",
+    "heartbeat.interval.ms": "5000",
+    "tombstones.on.delete": "false"
+  }
+}
+    

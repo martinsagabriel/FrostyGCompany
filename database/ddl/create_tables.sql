@@ -48,10 +48,10 @@ CREATE TABLE Sale (
     SaleId BIGSERIAL PRIMARY KEY,
     SellerId INT NOT NULL,
     SaleDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    TotalAmount DECIMAL(12,2) NOT NULL,
     PaymentMethod VARCHAR(50),
+    SaleType VARCHAR(50) default null,
     FOREIGN KEY (SellerId) REFERENCES Seller(SellerId)
-);
+);	
 
 CREATE TABLE SaleItem (
     SaleItemId BIGSERIAL PRIMARY KEY,
